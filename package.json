@@ -1,0 +1,24 @@
+{
+	"name": "dep-watchdog",
+	"version": "1.0.1",
+	"description": "Check if internal and external npm packages are up-to-date.",
+	"main": "index.js",
+	"bin": {
+		"dep-watchdog": "index.js"
+	},
+	"keywords": [
+		"react",
+		"cli",
+		"package",
+		"verifier",
+		"update"
+	],
+	"author": "Bhavneesh Gupta",
+	"license": "MIT",
+	"dependencies": {
+		"chalk": "^5.4.1",
+		"cli-table3": "^0.6.5",
+		"ora": "^8.2.0"
+	},
+	"type": "module"
+}
