@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# 🐶 dep-watchdog
+# 🐶 bump-buddy
 
 > A simple CLI tool to check, audit, and update outdated npm packages in your JavaScript or React project.
 
@@ -23,58 +23,58 @@
 Install globally:
 
 ```bash
-npm install -g dep-watchdog
+npm install -g bump-buddy
 
 ```
 
-## dep-watchdog Usage
+## bump-buddy Usage
 
 To Check all installed dependencies:
 
 ```bash
-dep-watchdog
+bump-buddy
 
 ```
 
 To Check a project in a specific path:
 
 ```bash
-dep-watchdog --path ../my-project
+bump-buddy --path ../my-project
 
 ```
 
 To Check specific packages:
 
 ```bash
-dep-watchdog react axios
+bump-buddy react axios
 
 ```
 
 To Update all outdated packages:
 
 ```bash
-dep-watchdog --update
+bump-buddy --update
 
 ```
 
 To Update specific packages:
 
 ```bash
-dep-watchdog react --update
+bump-buddy react --update
 
 ```
 
 To Dry run (simulate updates):
 
 ```bash
-dep-watchdog --update --dry-run
+bump-buddy --update --dry-run
 
 ```
 
 To Output in JSON format:
 
 ```bash
-dep-watchdog --json
+bump-buddy --json
 
 ```
 
@@ -97,7 +97,7 @@ dep-watchdog --json
 To see available commands and options:
 
 ```bash
-dep-watchdog --help
+bump-buddy --help
 
 ```
 

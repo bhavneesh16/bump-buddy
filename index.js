@@ -52,19 +52,19 @@ function parseArgs() {
 
 function printHelp() {
 	console.log(`
-  🐶 dep-watchdog — A CLI tool to check and update npm package versions
+  🐶 bump-buddy — A CLI tool to check and update npm package versions
   
   Usage:
-	dep-watchdog [packages...] [options]
+	bump-buddy [packages...] [options]
   
   Examples:
-	dep-watchdog
-	dep-watchdog react axios
-	dep-watchdog --update
-	dep-watchdog react --update
-	dep-watchdog --path ../app
-	dep-watchdog --dry-run
-	dep-watchdog --json
+	bump-buddy
+	bump-buddy react axios
+	bump-buddy --update
+	bump-buddy react --update
+	bump-buddy --path ../app
+	bump-buddy --dry-run
+	bump-buddy --json
   
   Options:
 	-p, --path <dir>     Path to the project directory

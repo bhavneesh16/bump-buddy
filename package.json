@@ -1,14 +1,14 @@
 {
-	"name": "dep-watchdog",
+	"name": "bump-buddy",
 	"version": "1.0.14",
 	"description": "Check if internal and external React packages are up-to-date.",
 	"main": "index.js",
 	"bin": {
-		"dep-watchdog": "index.js"
+		"bump-buddy": "index.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bhavneesh16/dep-watchdog.git"
+		"url": "git+https://github.com/bhavneesh16/bump-buddy.git"
 	},
 	"keywords": [
 		"react",
@@ -25,6 +25,6 @@
 		"cli-table3": "^0.6.5",
 		"ora": "^8.2.0"
 	},
-	"homepage": "https://github.com/bhavneesh16/dep-watchdog#readme",
+	"homepage": "https://github.com/bhavneesh16/bump-buddy#readme",
 	"type": "module"
 }
