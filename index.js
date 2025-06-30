@@ -26,7 +26,10 @@ function parseArgs() {
 	for (let i = 0; i < args.length; i++) {
 		const arg = args[i];
 
-		if (arg === "--path" || arg === "-p") {
+		if (args.includes("--help") || args.includes("-h")) {
+			printHelp();
+			process.exit(0);
+		} else if (arg === "--path" || arg === "-p") {
 			options.path = path.resolve(args[i + 1]);
 			i++;
 		} else if (arg === "--update" || arg === "-u") {
@@ -41,6 +44,35 @@ function parseArgs() {
 	}
 
 	return options;
+}
+
+// -------------------------
+// Print Help to Console dep-watching usage
+// -------------------------
+
+function printHelp() {
+	console.log(`
+  🐶 dep-watchdog — A CLI tool to check and update npm package versions
+  
+  Usage:
+	dep-watchdog [packages...] [options]
+  
+  Examples:
+	dep-watchdog
+	dep-watchdog react axios
+	dep-watchdog --update
+	dep-watchdog react --update
+	dep-watchdog --path ../app
+	dep-watchdog --dry-run
+	dep-watchdog --json
+  
+  Options:
+	-p, --path <dir>     Path to the project directory
+	-u, --update         Automatically update outdated packages
+	-d, --dry-run        Show what would be updated, but don't update
+	--json               Output result as JSON
+	-h, --help           Show this help message
+  `);
 }
 
 // -------------------------

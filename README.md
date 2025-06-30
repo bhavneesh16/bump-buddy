@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # 🐶 dep-watchdog
 
 > A simple CLI tool to check, audit, and update outdated npm packages in your JavaScript or React project.
@@ -23,51 +25,58 @@ Install globally:
 ```bash
 npm install -g dep-watchdog
 
+```
 
-## 📦 Usage
-
-dep-watchdog [packages...] [options]
-
+## dep-watchdog Usage
 
 To Check all installed dependencies:
+
+```bash
 dep-watchdog
 
-
-To Check specific packages:
-dep-watchdog react axios
-
-
-To Update all outdated packages:
-dep-watchdog --update
-
-
-To Update specific packages:
-dep-watchdog react --update
-
-
+```
 
 To Check a project in a specific path:
+
+```bash
 dep-watchdog --path ../my-project
 
+```
 
-To Dry run (simulate updates):
-dep-watchdog --update --dry-run
+To Check specific packages:
 
-
-
-To Output in JSON format:
-dep-watchdog --json
-
+```bash
+dep-watchdog react axios
 
 ```
-| Flag        | Alias | Description                                  |
-| ----------- | ----- | -------------------------------------------- |
-| `--path`    | `-p`  | Path to the project directory                |
-| `--update`  | `-u`  | Automatically install latest versions        |
-| `--dry-run` | `-d`  | Show what would be updated (no changes made) |
-| `--json`    |       | Output results as JSON                       |
-| `--help`    |       | Show usage info                              |
 
+To Update all outdated packages:
+
+```bash
+dep-watchdog --update
+
+```
+
+To Update specific packages:
+
+```bash
+dep-watchdog react --update
+
+```
+
+To Dry run (simulate updates):
+
+```bash
+dep-watchdog --update --dry-run
+
+```
+
+To Output in JSON format:
+
+```bash
+dep-watchdog --json
+
+```
 
 ### 📊 Example Output
 
@@ -82,3 +91,20 @@ dep-watchdog --json
 └───────────────┴────────────┴────────────┴───────────────┘
 
 ```
+
+## 🆘 CLI Help
+
+To see available commands and options:
+
+```bash
+dep-watchdog --help
+
+```
+
+| Flag        | Alias | Description                                  |
+| ----------- | ----- | -------------------------------------------- |
+| `--path`    | `-p`  | Path to the project directory                |
+| `--update`  | `-u`  | Automatically install latest versions        |
+| `--dry-run` | `-d`  | Show what would be updated (no changes made) |
+| `--json`    |       | Output results as JSON                       |
+| `--help`    |       | Show usage info                              |
