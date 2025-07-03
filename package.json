@@ -1,6 +1,6 @@
 {
 	"name": "bump-buddy",
-	"version": "1.0.14",
+	"version": "1.2.2",
 	"description": "Check if internal and external React packages are up-to-date.",
 	"main": "index.js",
 	"bin": {
@@ -11,12 +11,26 @@
 		"url": "git+https://github.com/bhavneesh16/bump-buddy.git"
 	},
 	"keywords": [
-		"react",
 		"cli",
-		"package",
-		"verifier",
+		"npm",
+		"packages",
+		"version",
 		"update",
-		"watchdog"
+		"dependency",
+		"dependencies",
+		"bump",
+		"checker",
+		"verifier",
+		"updater",
+		"outdated",
+		"package.json",
+		"npm-check",
+		"npm-update",
+		"semver",
+		"bump-buddy",
+		"watchdog",
+		"dependency-checker",
+		"devtool"
 	],
 	"author": "Bhavneesh Gupta",
 	"license": "MIT",
