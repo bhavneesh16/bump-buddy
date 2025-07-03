@@ -63,7 +63,7 @@ function printHelp() {
 	bump-buddy --update
 	bump-buddy react --update
 	bump-buddy --path ../app
-	bump-buddy --dry-run
+	bump-buddy --update --dry-run
 	bump-buddy --json
   
   Options:
@@ -103,8 +103,10 @@ function fetchLatestVersion(pkgName) {
 				res.on("end", () => {
 					try {
 						const json = JSON.parse(data);
+						// console.log("\n\n api call >> ", json["dist-tags"]);
 						resolve(json["dist-tags"].latest);
 					} catch (err) {
+						// console.log("api error >> ", err);
 						reject(err);
 					}
 				});
@@ -135,63 +137,92 @@ async function checkPackages(
 	console.log(chalk.cyan(`\n📁 Checking packages in: ${projectPath}\n`));
 
 	const spinner = ora(
-		chalk.cyan(
-			`Checking versions for ${targetPackages.length} package(s)...\n\n`
-		)
+		chalk.cyan(`Checking versions... (0/${targetPackages.length} - 0%)\n`)
 	).start();
 
-	for (const pkg of targetPackages) {
-		const currentVersion = localPackages[pkg];
+	const batchSize = 25;
+	const total = targetPackages.length;
+	let completed = 0;
 
-		if (!currentVersion) {
-			results.push({
-				name: pkg,
-				installed: null,
-				latest: null,
-				status: "not-installed",
-			});
-			continue;
-		}
+	// Batch runner using Promise.allSettled
+	async function processBatch(batch) {
+		const fetchTasks = batch.map((pkg) => {
+			const currentVersion = localPackages[pkg];
 
-		try {
-			const latest = await fetchLatestVersion(pkg);
-			const cleanVersion = currentVersion.replace(/^[\^~]/, "");
-
-			if (cleanVersion === latest) {
-				results.push({
+			if (!currentVersion) {
+				completed++;
+				spinner.text = chalk.cyan(
+					`Checking versions... (${completed}/${total} - ${Math.floor(
+						(completed / total) * 100
+					)}%)`
+				);
+				return Promise.resolve({
 					name: pkg,
-					installed: cleanVersion,
-					latest,
-					status: "up-to-date",
+					installed: null,
+					latest: null,
+					status: "not-installed",
 				});
-			} else {
-				results.push({
-					name: pkg,
-					installed: cleanVersion,
-					latest,
-					status: "outdated",
-				});
-				outdatedPackages.push({ name: pkg, latest });
 			}
-		} catch (err) {
-			results.push({
-				name: pkg,
-				installed: currentVersion || null,
-				latest: null,
-				status: "error",
-				error: err.message,
-			});
+
+			return fetchLatestVersion(pkg)
+				.then((latest) => {
+					const cleanVersion = currentVersion.replace(/^[\^~]/, "");
+					const status = cleanVersion === latest ? "up-to-date" : "outdated";
+
+					if (status === "outdated") {
+						outdatedPackages.push({ name: pkg, latest });
+					}
+
+					return {
+						name: pkg,
+						installed: cleanVersion,
+						latest,
+						status,
+					};
+				})
+				.catch((err) => ({
+					name: pkg,
+					installed: currentVersion || null,
+					latest: null,
+					status: "error",
+					error: err.message,
+				}))
+				.finally(() => {
+					completed++;
+					spinner.text = chalk.cyan(
+						`Checking versions... (${completed}/${total} - ${Math.floor(
+							(completed / total) * 100
+						)}%)`
+					);
+				});
+		});
+
+		const settled = await Promise.allSettled(fetchTasks);
+		for (const res of settled) {
+			if (res.status === "fulfilled") {
+				results.push(res.value);
+			} else {
+				// This shouldn't happen since we're catching errors inside the task
+				console.error(chalk.red(`Unexpected error: ${res.reason}`));
+			}
 		}
 	}
 
-	// If JSON output requested
+	// Process all batches
+	for (let i = 0; i < total; i += batchSize) {
+		const batch = targetPackages.slice(i, i + batchSize);
+		await processBatch(batch);
+	}
+
+	spinner.succeed(chalk.cyan("Checking versions Done.\n\n"));
+
+	// JSON output
 	if (jsonOutput) {
 		console.log(JSON.stringify(results, null, 2));
-		return;
+		process.exit(0);
 	}
 
 	// Table output
-
 	const table = new Table({
 		head: [
 			chalk.gray("Package"),
@@ -248,8 +279,6 @@ async function checkPackages(
 	} else if (shouldUpdate) {
 		console.log(chalk.green("\n✔ All packages are already up-to-date.\n"));
 	}
-
-	spinner.succeed(chalk.cyan("Checking versions Done.\n\n"));
 }
 
 // -------------------------
