@@ -15,6 +15,7 @@
 - 🧪 Dry-run mode to preview updates
 - 📊 JSON or table output
 - ⚙️ CI/CD friendly
+- 🔧 Checks for unused dependencies in project
 
 ---
 
@@ -71,6 +72,20 @@ bump-buddy --update --dry-run
 
 ```
 
+To Check for unsed dependencies:
+
+```bash
+bump-buddy --unused
+
+```
+
+To Check for unsed dependencies in a specific path:
+
+```bash
+bump-buddy --path ../my-project --unused
+
+```
+
 To Output in JSON format:
 
 ```bash
@@ -107,4 +122,5 @@ bump-buddy --help
 | `--update`  | `-u`  | Automatically install latest versions        |
 | `--dry-run` | `-d`  | Show what would be updated (no changes made) |
 | `--json`    |       | Output results as JSON                       |
-| `--help`    |       | Show usage info                              |
+| `--unused`  |       | Checks for unused dependencies               |
+| `--help`    | `-h`  | Show usage info                              |
