@@ -1,7 +1,7 @@
 {
 	"name": "bump-buddy",
-	"version": "1.2.2",
-	"description": "Check if internal and external React packages are up-to-date.",
+	"version": "1.2.5",
+	"description": "Check if internal and external npm packages are up-to-date.",
 	"main": "index.js",
 	"bin": {
 		"bump-buddy": "index.js"
@@ -30,7 +30,16 @@
 		"bump-buddy",
 		"watchdog",
 		"dependency-checker",
-		"devtool"
+		"devtool",
+		"dependency analysis",
+		"dead code",
+		"unused dependencies",
+		"cleanup",
+		"dependency cleanup",
+		"unused modules",
+		"code hygiene",
+		"tech debt",
+		"dependency audit"
 	],
 	"author": "Bhavneesh Gupta",
 	"license": "MIT",
